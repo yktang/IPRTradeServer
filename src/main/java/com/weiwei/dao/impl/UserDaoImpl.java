@@ -22,8 +22,9 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void create(final Customer customer) {
 		logger.info("create customer {}", customer.getUsername());
-		String sql = "insert into customer (username, password) values (?, ?)";
-		jdbcTemplate.update(sql, new Object[] { customer.getUsername(), customer.getPassword() });
+		String sql = "insert into customer (username, password, phone, email) values (?, ?, ?, ?)";
+		jdbcTemplate.update(sql, new Object[] { customer.getUsername(), customer.getPassword(), customer.getPhone(),
+				customer.getEmail() });
 	}
 
 	@Override
