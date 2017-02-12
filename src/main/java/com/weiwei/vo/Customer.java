@@ -1,5 +1,6 @@
 package com.weiwei.vo;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +14,8 @@ public class Customer implements UserDetails {
 	private String username;
 	private String password;
 	private String email;
-	private String phone;
+	private Timestamp create_date;
+	private Timestamp last_update;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -79,12 +81,20 @@ public class Customer implements UserDetails {
 		this.email = email;
 	}
 
-	public String getPhone() {
-		return phone;
+	public Timestamp getCreate_date() {
+		return create_date;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setCreate_date(Timestamp create_date) {
+		this.create_date = create_date;
+	}
+
+	public Timestamp getLast_update() {
+		return last_update;
+	}
+
+	public void setLast_update(Timestamp last_update) {
+		this.last_update = last_update;
 	}
 
 }

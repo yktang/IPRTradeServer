@@ -1,5 +1,7 @@
 package com.weiwei.dao.impl;
 
+import java.time.Instant;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,10 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void create(final Customer customer) {
 		logger.info("create customer {}", customer.getUsername());
-		String sql = "insert into customer (username, password, phone, email) values (?, ?, ?, ?)";
-		jdbcTemplate.update(sql, new Object[] { customer.getUsername(), customer.getPassword(), customer.getPhone(),
-				customer.getEmail() });
+		Instant instant = Instant.now();
+		long timeStampSeconds = instant.getEpochSecond();
+		String sql = "insert into customer (username, password, email, create_date, last_update) values (?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, new Object[] { customer.getUsername(), customer.getPassword(), customer.getEmail(), timeStampSeconds, timeStampSeconds });
 	}
 
 	@Override
