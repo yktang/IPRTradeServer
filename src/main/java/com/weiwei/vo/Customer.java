@@ -3,6 +3,7 @@ package com.weiwei.vo;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,7 +12,9 @@ public class Customer implements UserDetails {
 	private static final long serialVersionUID = 487648411650651768L;
 	
 	private Long id;
+	@NotBlank(message = "username must not be blank!")
 	private String username;
+	@NotBlank(message = "password must not be blank!")
 	private String password;
 	private String email;
 	private Timestamp create_date;

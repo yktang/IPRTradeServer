@@ -13,17 +13,18 @@ import com.weiwei.dao.UserDao;
 import com.weiwei.vo.Customer;
 
 @RestController
-@RequestMapping(Constants.IPRSEC)
+@RequestMapping(Constants.IPR)
 public class UserController {
-	
+
 	Logger logger = LogManager.getLogger(UserController.class);
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String registration(@RequestBody Customer customer) {
 		userDao.create(customer);
 		return "success";
 	}
+
 }

@@ -11,27 +11,23 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-//@Profile("customquery")
+// @Profile("customquery")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private DataSource dataSource;
-	
+
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
-			.usersByUsernameQuery("SELECT username,password,1 FROM customer where username=?")
-			.authoritiesByUsernameQuery("SELECT username,authority FROM Custom_Roles where username=?");
+				.usersByUsernameQuery("SELECT username,password,1 FROM customer where username=?")
+				.authoritiesByUsernameQuery("SELECT username,authority FROM Custom_Roles where username=?");
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/ipr/**").permitAll()
-			.anyRequest().authenticated()
-			.and()
-			.formLogin().permitAll()
-			.and()
-			.logout().permitAll();
+		http.csrf().disable();
+		http.authorizeRequests().antMatchers("/ipr/**").permitAll().anyRequest().authenticated().and().formLogin()
+				.permitAll().and().logout().permitAll();
 	}
 }
